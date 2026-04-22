@@ -4,10 +4,9 @@ import random
 st.set_page_config(page_title="공인중개사 암기박스", layout="centered")
 
 st.title("🎓 공인중개사법 단계별 암기")
-st.caption("보내주신 모든 내용을 그대로 반영했습니다. 레벨을 선택해 공부하세요.")
+st.caption("보내주신 내용을 바탕으로 '몸풀기' 단계를 추가했습니다.")
 
-# --- 데이터 정의 (보내주신 텍스트 100% 동일) ---
-# 구조: "카테고리명": {"items": [(질문, 정답)], "hint": "암기코드"}
+# --- 데이터 정의 ---
 data_dict = {
     "결격사유": {
         "items": [
@@ -131,9 +130,8 @@ data_dict = {
         ],
         "hint": "이수양사칭표정시비금지"
     },
-    "500만원 이하 과태료(운명공시명령징계정보통신연수확인부당)": {
+    "500만원 이하 과태료": {
         "items": [
-            # 요청하신 데이터 내용 그대로 반영
             ("거래정보사업자가 운영규정 위반(운)?", "500만원 이하 과태료"),
             ("거래정보사업자가 감독상 명령 위반(명)?", "500만원 이하 과태료"),
             ("협회가 공시의무 위반(공시)?", "500만원 이하 과태료"),
@@ -148,7 +146,7 @@ data_dict = {
         ],
         "hint": "운명공시명령징계정보통신연수확인부당"
     },
-    "100만원 이하 과태료(명등표휴게소보자)": {
+    "100만원 이하 과태료": {
         "items": [
             ("사무소 명칭 위반(명), 성명 표기 위반?", "100만원 이하 과태료"),
             ("등록증 미반납(등) (취소·폐업 7일)?", "100만원 이하 과태료"),
@@ -165,19 +163,31 @@ data_dict = {
 
 # --- 레벨 선택 로직 ---
 st.sidebar.header("🕹️ 난이도 설정")
-level = st.sidebar.radio("단계를 선택하세요:", ["Level 1 (단원별 집중)", "Level 2 (취소/형벌 섞기)", "Level 3 (전범위 랜덤)"])
+level = st.sidebar.radio("단계를 선택하세요:", ["Level 0 (몸풀기: 암기코드)", "Level 1 (단원별 집중)", "Level 2 (취소/형벌 섞기)", "Level 3 (전범위 랜덤)"])
 
 final_questions = []
 
-if level == "Level 1 (단원별 집중)":
+if level == "Level 0 (몸풀기: 암기코드)":
+    # 암기코드를 묻고 답하는 문제 생성
+    warmup_data = []
+    for title, content in data_dict.items():
+        if content["hint"] != "결격사유 전 항목": # 일반적인 코드들만 대상
+            # 1. 제목 -> 코드
+            warmup_data.append((f"'{title}' 사유의 암기코드는?", content["hint"], "앞글자를 따보세요!"))
+            # 2. 코드 -> 제목
+            warmup_data.append((f"암기코드 '{content['hint']}'는 무엇에 대한 코드인가요?", title, "내용을 떠올려보세요!"))
+    final_questions = warmup_data
+
+elif level == "Level 1 (단원별 집중)":
     cat = st.sidebar.selectbox("단원을 선택하세요:", list(data_dict.keys()))
     final_questions = [(q, a, data_dict[cat]["hint"]) for q, a in data_dict[cat]["items"]]
+
 elif level == "Level 2 (취소/형벌 섞기)":
-    # 취소와 형벌 위주로 섞음
-    mix_cats = ["필필요적 취소사유(사부이이양삼수결정)", "임의적 취소사유(미시사업거금보전236)", "형벌3/3(무부 증직투시단 업무방해)", "형벌1/1(이수양사칭표정시비금지)"]
+    mix_cats = ["필요적 취소사유(사부이이양삼수결정)", "임의적 취소사유(미시사업거금보전236)", "형벌3/3(무부 증직투시단 업무방해)", "형벌1/1(이수양사칭표정시비금지)"]
     for c in mix_cats:
         if c in data_dict:
             final_questions += [(q, a, data_dict[c]["hint"]) for q, a in data_dict[c]["items"]]
+
 else: # Level 3
     for cat in data_dict:
         final_questions += [(q, a, data_dict[cat]["hint"]) for q, a in data_dict[cat]["items"]]
@@ -197,7 +207,7 @@ if st.session_state.idx < len(st.session_state.quiz_data):
     
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("💡 힌트(암기코드)", use_container_width=True):
+        if st.button("💡 힌트보기", use_container_width=True):
             st.session_state.show_hint = True
     with col2:
         if st.button("🔔 정답 확인", use_container_width=True):
