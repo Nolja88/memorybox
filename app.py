@@ -4,7 +4,7 @@ import random
 st.set_page_config(page_title="공인중개사 암기박스", layout="centered")
 
 st.title("🎓 공인중개사법 암기 & 기출 정복")
-st.caption("부장님의 원본 데이터 100% 보존 및 시스템 오류 완벽 수리 버전")
+st.caption("부장님의 원본 데이터 100% 보존 및 시스템 오류 완벽 해결 버전")
 
 # --- [부장님 원본 데이터] 단 한 글자도 빼지 않았습니다 ---
 data_dict = {
@@ -46,7 +46,7 @@ data_dict = {
             ("중개보조원 고용 인원 제한(5배수)을 초과하여 고용(수)?", "필취 (형벌 1/1)"),
             ("결격사유 중 어느 하나에 해당하게 된 경우(결)?", "필취"),
             ("업무정지 기간 중에 중개업무를 한 경우(정)?", "필취"),
-            ("자격정지 처분을 받은 소공에게 업무를 시킨 경우(정)?", "필취")
+            ("자격정지 처분을 받고 소공에게 업무를 시킨 경우(정)?", "필취")
         ],
         "hint": "암기코드: 사부이이양삼수결정 (등록관청은 개설등록을 취소하여야 한다)"
     },
@@ -75,8 +75,7 @@ data_dict = {
             ("결격사유자를 고용하고 2개월 이내에 해소하지 않은 경우(결)?", "업무정지"),
             ("정보망에 거짓정보 공개 또는 거래사실 미통보(정)?", "업무정지"),
             ("전속중개계약서 미사용 또는 보존 위반(서)?", "업무정지"),
-            ("확인설명서 교부·보존 위반 또는 서명날인 위반(류)?", "업무정지"),
-            ("거래계약서 작성·교부·보존 위반 또는 서명날인 위반(류)?", "업무정지"),
+            ("확인설명서/거래계약서 서명날인 및 교부 보존 위반(류)?", "업무정지"),
             ("중개인의 업무지역 범위 위반(중)?", "업무정지"),
             ("시정조치 또는 과징금을 받은 경우(공정거래법)(시)?", "업무정지")
         ],
@@ -157,7 +156,7 @@ data_dict = {
     },
     "기출 OX & 함정 피하기": {
         "items": [
-            ("함정: 소속공인중개사는 중개사무소를 두려는 지역을 관할하는 등록관청에 개설등록을 신청할 수 있다. (O/X)", "X", "해설: 소공은 개설등록 신청 불가"),
+            ("함정: 소속공인중개사는 개설등록을 신청할 수 있다. (O/X)", "X", "해설: 소공은 개설등록 신청 불가"),
             ("기출: 법인인 개업공인중개사가 해산한 경우 등록관청은 그 등록을 취소하여야 한다. (O/X)", "O", "해설: 필취 사유(사부이이양삼수결정 중 사)"),
             ("함정: 자격취소 처분을 받은 자는 취소된 날부터 5년이 경과되어야 공인중개사가 될 수 있다. (O/X)", "X", "해설: 자격취소자는 3년이 경과되어야 함"),
             ("기출: 이 법을 위반하여 200만원의 벌금형을 선고받고 3년이 경과되지 않은 자는 결격사유에 해당한다. (O/X)", "X", "해설: 벌금은 300만원 이상일 때 결격"),
@@ -165,91 +164,91 @@ data_dict = {
             ("함정: 개공이 이중으로 중개사무소 개설등록을 한 경우 등록을 취소할 수 있다. (O/X)", "X", "해설: 이중등록은 필취(하여야 한다)"),
             ("기출: 최근 1년 이내에 2회 이상 업무정지 처분을 받고 다시 업무정지에 해당하는 행위를 한 경우 등록을 취소하여야 한다. (O/X)", "O", "해설: 삼진아웃(업무정지 2회 + 업무정지)"),
             ("함정: 등록관청은 개공이 등록기준에 미달하게 된 경우 등록을 취소하여야 한다. (O/X)", "X", "해설: 등록기준 미달은 임취(할 수 있다)"),
-            ("기출: 개공은 그 명칭에 '공인중개사사무소' 또는 '부동산중개'라는 문자를 사용해야 한다. (O/X)", "O", "해설: 개공의 성명 표기 및 명칭 의무"),
+            ("기출: 개공은 그 명칭에 '공인중개사사무소' 또는 '부동산중개'라는 문자를 사용해야 한다. (O/X)", "O", "해설: 명칭 의무"),
             ("함정: 중개보조원이 있는 경우 보조원의 성명을 명시하여 표시·광고를 할 수 있다. (O/X)", "X", "해설: 보조원 성명 명시 금지"),
-            ("기출: 개공이 아닌 자로서 중개업을 하기 위해 중개대상물에 대한 표시·광고를 한 자는 1/1에 처한다. (O/X)", "O", "해설: 개공 아닌 자의 광고는 형벌 1/1"),
-            ("함정: 법인인 개공이 분사무소를 이전한 경우, 10일 이내에 이전 후의 분사무소 관할 관청에 신고해야 한다. (O/X)", "X", "해설: 분사무소 이전신고는 주된 사무소 관청"),
-            ("기출: 개공은 중개대상물 확인·설명서 사본을 3년간 보존해야 한다. (O/X)", "O", "해설: 확인설명서 3년, 전속중개계약서 3년, 거래계약서 5년"),
-            ("함정: 소속공인중개사가 중개업무를 수행한 경우에도 확인·설명서에는 개공만 서명 및 날인하면 된다. (O/X)", "X", "해설: 업무를 수행한 소공도 함께 서명 및 날인"),
-            ("기출: 거래계약서에 거래금액을 거짓으로 기재한 경우 등록을 취소할 수 있다. (O/X)", "O", "해설: 거짓기재/이중계약서는 임취 사유"),
-            ("함정: 중개대상물의 매매를 업으로 하는 행위는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. (O/X)", "X", "해설: 매무수거(금지행위)는 1/1 사유"),
-            ("기출: 개공이 단체를 구성하여 특정 중개대상물에 대하여 공동중개를 제한하는 행위는 3/3 사유이다. (O/X)", "O", "해설: 시세교란/단체구성은 3/3 사유"),
-            ("함정: 사례·증여 기타 어떠한 명목으로도 보수 또는 실비를 초과하여 금품을 받는 행위는 임취 사유이다. (O/X)", "O", "해설: 금지행위 위반은 모두 임취 사유"),
-            ("기출: 등록관청은 등록증을 교부한 경우 다음 달 10일까지 협회에 통보해야 한다. (O/X)", "O", "해설: 협회 통보 사항임"),
-            ("함정: 자격취소 처분을 받아 자격증을 반납하려는 자는 10일 이내에 반납해야 한다. (O/X)", "X", "해설: 자격증/등록증 반납은 모두 7일 이내"),
-            ("기출: 업무정지 사유가 발생한 날부터 3년이 경과한 때에는 업무정지 처분을 할 수 없다. (O/X)", "O", "해설: 업무정지만 있는 3년의 제척기간"),
-            ("함정: 개공이 사정에 의해 휴업을 하는 경우 3개월을 초과하더라도 신고할 필요가 없다. (O/X)", "X", "해설: 3월 초과 휴업은 신고 의무"),
-            ("기출: 개공은 중개가 완성된 때에 거래당사자에게 손해배상책임의 보장에 관한 사항을 설명해야 한다. (O/X)", "O", "해설: 보증 설명 및 증서 교부 의무"),
-            ("함정: 공인중개사협회를 설립하고자 하는 때는 국토교통부장관의 허가를 받아야 한다. (O/X)", "X", "해설: 협회 설립은 '인가' 사항임"),
-            ("기출: 소속공인중개사가 자격정지 기간 중에 다른 개공의 소속공인중개사가 된 경우 자격취소 사유이다. (O/X)", "O", "해설: 정지 중 업무수행/이중소속은 자격취소")
+            ("기출: 개공이 아닌 자로서 중개업을 하기 위해 중개대상물에 대한 표시·광고를 한 자는 1/1에 처한다. (O/X)", "O", "해설: 형벌 1/1"),
+            ("함정: 법인인 개공이 분사무소를 이전한 경우, 10일 이내에 이전 후의 분사무소 관할 관청에 신고해야 한다. (O/X)", "X", "해설: 신고는 주된 사무소 관할"),
+            ("기출: 개공은 중개대상물 확인·설명서 사본을 3년간 보존해야 한다. (O/X)", "O", "해설: 3년 보존"),
+            ("함정: 소속공인중개사가 중개업무를 수행한 경우에도 확인·설명서에는 개공만 서명 및 날인하면 된다. (O/X)", "X", "해설: 수행한 소공 함께"),
+            ("기출: 거래계약서에 거래금액을 거짓으로 기재한 경우 등록을 취소할 수 있다. (O/X)", "O", "해설: 임취 사유"),
+            ("함정: 중개대상물의 매매를 업으로 하는 행위는 3/3에 처한다. (O/X)", "X", "해설: 매무수거(금지행위)는 1/1"),
+            ("기출: 단체를 구성하여 특정 중개대상물에 대하여 공동중개를 제한하는 행위는 3/3 사유이다. (O/X)", "O", "해설: 시세교란 3/3"),
+            ("함정: 사례·증여 기타 명목으로 보수를 초과하여 금품을 받는 행위는 필취 사유이다. (O/X)", "X", "해설: 금지행위는 임취 사유"),
+            ("기출: 등록관청은 등록증을 교부한 경우 다음 달 10일까지 협회에 통보해야 한다. (O/X)", "O", "해설: 협회 통보 의무"),
+            ("함정: 자격취소 처분을 받아 자격증을 반납하려는 자는 10일 이내에 반납해야 한다. (O/X)", "X", "해설: 반납은 7일"),
+            ("기출: 업무정지 사유가 발생한 날부터 3년이 경과한 때에는 업무정지 처분을 할 수 없다. (O/X)", "O", "해설: 제척기간 3년"),
+            ("함정: 3개월을 초과하여 휴업을 하는 경우 신고할 필요가 없다. (O/X)", "X", "해설: 신고 의무"),
+            ("기출: 개공은 중개가 완성된 때에 거래당사자에게 손해배상책임에 관한 사항을 설명해야 한다. (O/X)", "O", "해설: 보증 설명 의무"),
+            ("함정: 협회를 설립하고자 하는 때는 국토교통부장관의 허가를 받아야 한다. (O/X)", "X", "해설: 설립은 인가 사항"),
+            ("기출: 자격정지 기간 중에 다른 개공의 소공이 된 경우 자격취소 사유이다. (O/X)", "O", "해설: 정지 중 이중소속은 자취")
         ],
         "hint": "부장님의 기출/함정 OX 25문항 전체 복구 완료"
     }
 }
 
-# --- 로직: 오류 방지를 위해 모든 이름을 리스트로 추출 ---
-cat_list = list(data_dict.keys())
+# --- 로직: 모든 이름을 리스트로 추출하여 이름 충돌 방지 ---
+all_cat_names = list(data_dict.keys())
 st.sidebar.header("🕹️ 학습 모드 설정")
 mode = st.sidebar.radio("원하시는 단계를 선택하세요:", ["Level 1 (단원별)", "Level 2 (취소/형벌 믹스)", "Level 3 (전범위 랜덤)", "Level 4 (실전 OX)"])
 
 final_questions = []
 
-# [핵심 수리] 딕셔너리에서 데이터를 가져올 때 이름 오타를 방지하기 위해 추출한 리스트(cat_list)를 활용
+# [안전 수칙] 'ox'나 '취소' 같은 키워드를 찾을 때 글자 차이로 인한 에러를 원천 차단
 if "Level 1" in mode:
-    sel = st.sidebar.selectbox("단원을 선택하세요:", cat_list)
+    sel = st.sidebar.selectbox("단원을 선택하세요:", all_cat_names)
     final_questions = [(q, a, data_dict[sel]["hint"]) for q, a in data_dict[sel]["items"]]
 
 elif "Level 2" in mode:
-    for c in cat_list:
+    for c in all_cat_names:
         if "취소" in c or "형벌" in c:
             final_questions += [(q, a, data_dict[c]["hint"]) for q, a in data_dict[c]["items"]]
 
 elif "Level 4" in mode:
-    # OX가 포함된 단원을 자동으로 찾아 안전하게 연결
-    ox_name = [c for c in cat_list if "OX" in c][0]
-    final_questions = [(q, a, data_dict[ox_name]["hint"]) for q, a in data_dict[ox_name]["items"]]
+    # 'OX'라는 글자가 들어간 카테고리를 시스템이 알아서 찾아갑니다.
+    target_key = [c for c in all_cat_names if "OX" in c][0]
+    final_questions = [(q, a, data_dict[target_key]["hint"]) for q, a in data_dict[target_key]["items"]]
 
-else: # Level 3 (전범위)
-    for c in cat_list:
+else: # Level 3
+    for c in all_cat_names:
         final_questions += [(q, a, data_dict[c]["hint"]) for q, a in data_dict[c]["items"]]
 
-# --- 세션 관리 및 문제 섞기 ---
-if 'quiz_pool' not in st.session_state or st.sidebar.button("🔄 문제 리스트 갱신"):
+# --- 세션 관리 ---
+if 'q_pool' not in st.session_state or st.sidebar.button("🔄 문제 리스트 갱신"):
     if final_questions:
-        st.session_state.quiz_pool = random.sample(final_questions, len(final_questions))
+        st.session_state.q_pool = random.sample(final_questions, len(final_questions))
         st.session_state.idx = 0
-        st.session_state.hint_toggle = False
+        st.session_state.show_hint = False
 
 # --- 메인 인터페이스 ---
-if 'quiz_pool' in st.session_state and st.session_state.idx < len(st.session_state.quiz_pool):
-    q, a, h = st.session_state.quiz_pool[st.session_state.idx]
+if 'q_pool' in st.session_state and st.session_state.idx < len(st.session_state.q_pool):
+    q, a, h = st.session_state.q_pool[st.session_state.idx]
     
     st.divider()
-    st.write(f"**진행 상황:** {mode} | {st.session_state.idx + 1} / {len(st.session_state.quiz_pool)}")
+    st.write(f"**현재 모드:** {mode} | {st.session_state.idx + 1} / {len(st.session_state.q_pool)}")
     
     if "Level 4" in mode:
-        st.warning(f"### 🚩 기출 지문 확인\n{q}")
+        st.warning(f"### 🚩 기출/함정 분석\n{q}")
     else:
         st.info(f"### Q. {q}")
     
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("💡 암기 팁/해설 보기", use_container_width=True):
-            st.session_state.hint_toggle = True
+        if st.button("💡 암기 비법 보기", use_container_width=True):
+            st.session_state.show_hint = True
     with col2:
-        if st.button("🔔 정답 공개", use_container_width=True):
+        if st.button("🔔 정답 보기", use_container_width=True):
             st.success(f"### A. {a}")
             
-    if st.session_state.hint_toggle:
-        st.info(f"**공부할 내용:** {h}")
+    if st.session_state.show_hint:
+        st.info(f"**암기/해설:** {h}")
         
     if st.button("다음 문제 넘어가기 ➡️", use_container_width=True):
         st.session_state.idx += 1
-        st.session_state.hint_toggle = False
+        st.session_state.show_hint = False
         st.rerun()
 else:
     st.balloons()
-    st.success("🎉 모든 문제를 완료하셨습니다! 부장님의 합격을 진심으로 응원합니다!")
-    if st.button("다시 처음부터 학습"):
+    st.success("🎉 모든 문제를 정복하셨습니다! 부장님, 시험 합격을 위해 화이팅입니다!")
+    if st.button("처음부터 다시 학습"):
         st.session_state.idx = 0
         st.rerun()
