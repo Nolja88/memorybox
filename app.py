@@ -1,12 +1,13 @@
 import streamlit as st
 import random
+import re
 
 st.set_page_config(page_title="공인중개사 암기박스", layout="centered")
 
 st.title("🎓 공인중개사법 단계별 암기")
-st.caption("보내주신 내용을 바탕으로 '몸풀기' 단계를 추가했습니다.")
+st.caption("모든 데이터를 포함하고, 질문 내 정답 노출을 방지하도록 수정되었습니다.")
 
-# --- 데이터 정의 ---
+# --- 데이터 정의 (보내주신 모든 데이터 100% 반영) ---
 data_dict = {
     "결격사유": {
         "items": [
@@ -161,6 +162,11 @@ data_dict = {
     }
 }
 
+# --- 질문 정제 함수 (괄호 및 내부 텍스트 제거) ---
+def clean_title_for_question(text):
+    # "필요적 취소사유(사부이이양삼수결정)" -> "필요적 취소사유" 로 변환
+    return re.sub(r'\(.*?\)', '', text).strip()
+
 # --- 레벨 선택 로직 ---
 st.sidebar.header("🕹️ 난이도 설정")
 level = st.sidebar.radio("단계를 선택하세요:", ["Level 0 (몸풀기: 암기코드)", "Level 1 (단원별 집중)", "Level 2 (취소/형벌 섞기)", "Level 3 (전범위 랜덤)"])
@@ -168,25 +174,24 @@ level = st.sidebar.radio("단계를 선택하세요:", ["Level 0 (몸풀기: 암
 final_questions = []
 
 if level == "Level 0 (몸풀기: 암기코드)":
-    # 암기코드를 묻고 답하는 문제 생성
-    warmup_data = []
     for title, content in data_dict.items():
-        if content["hint"] != "결격사유 전 항목": # 일반적인 코드들만 대상
-            # 1. 제목 -> 코드
-            warmup_data.append((f"'{title}' 사유의 암기코드는?", content["hint"], "앞글자를 따보세요!"))
-            # 2. 코드 -> 제목
-            warmup_data.append((f"암기코드 '{content['hint']}'는 무엇에 대한 코드인가요?", title, "내용을 떠올려보세요!"))
-    final_questions = warmup_data
+        pure_title = clean_title_for_question(title)
+        code = content["hint"]
+        if code != "결격사유 전 항목":
+            # 문제 생성 시 질문에 코드가 포함되지 않도록 함
+            final_questions.append((f"'{pure_title}'의 암기코드는 무엇인가요?", code, "앞글자를 조합해보세요."))
+            final_questions.append((f"암기코드 '{code}'는 무엇에 대한 코드인가요?", pure_title, "행정처분이나 형벌의 이름을 맞혀보세요."))
 
 elif level == "Level 1 (단원별 집중)":
     cat = st.sidebar.selectbox("단원을 선택하세요:", list(data_dict.keys()))
     final_questions = [(q, a, data_dict[cat]["hint"]) for q, a in data_dict[cat]["items"]]
 
 elif level == "Level 2 (취소/형벌 섞기)":
-    mix_cats = ["필요적 취소사유(사부이이양삼수결정)", "임의적 취소사유(미시사업거금보전236)", "형벌3/3(무부 증직투시단 업무방해)", "형벌1/1(이수양사칭표정시비금지)"]
-    for c in mix_cats:
-        if c in data_dict:
-            final_questions += [(q, a, data_dict[c]["hint"]) for q, a in data_dict[c]["items"]]
+    # 취소와 형벌 위주 카테고리만 필터링
+    mix_keywords = ["취소", "형벌", "징역"]
+    for title, content in data_dict.items():
+        if any(kw in title for kw in mix_keywords):
+            final_questions += [(q, a, content["hint"]) for q, a in content["items"]]
 
 else: # Level 3
     for cat in data_dict:
@@ -207,7 +212,7 @@ if st.session_state.idx < len(st.session_state.quiz_data):
     
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("💡 힌트보기", use_container_width=True):
+        if st.button("💡 힌트(암기코드)", use_container_width=True):
             st.session_state.show_hint = True
     with col2:
         if st.button("🔔 정답 확인", use_container_width=True):
