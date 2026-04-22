@@ -4,9 +4,9 @@ import random
 st.set_page_config(page_title="공인중개사 암기박스", layout="centered")
 
 st.title("🎓 공인중개사법 암기 & 기출 정복")
-st.caption("모든 데이터를 원본 그대로 복구하고 ValueError를 완벽히 해결했습니다.")
+st.caption("모든 데이터 복구 완료 및 시스템 오류 수정을 마쳤습니다.")
 
-# --- 데이터 정의 (부장님께서 주신 모든 상세 문구 100% 반영) ---
+# --- 데이터 정의 (부장님 원본 데이터 100% 반영) ---
 data_dict = {
     "결격사유": {
         "items": [
@@ -191,25 +191,22 @@ data_dict = {
     }
 }
 
-# --- 로직 ---
+# --- 레벨 선택 로직 ---
 st.sidebar.header("🕹️ 난이도 설정")
 level = st.sidebar.radio("단계를 선택하세요:", [
-    "Level 1 (단원별)", 
+    "Level 1 (단원별 집중)", 
     "Level 2 (취소/형벌 믹스)", 
     "Level 3 (전범위 랜덤)",
-    "Level 4 (기출 OX & 함정)"
+    "Level 4 (기출 OX & 함정 피하기)"
 ])
 
 final_questions = []
 
-# 카테고리 이름을 변수가 아닌 문자열 직접 입력으로 처리 (오류 원천 봉쇄)
 if "Level 1" in level:
     cat_list = list(data_dict.keys())
     selected_cat = st.sidebar.selectbox("단원을 선택하세요:", cat_list)
     final_questions = [(q, a, data_dict[selected_cat]["hint"]) for q, a in data_dict[selected_cat]["items"]]
-
 elif "Level 2" in level:
-    # 섞을 카테고리들을 명확히 지정
     mix_targets = [
         "필요적 취소사유(사부이이양삼수결정)", 
         "임의적 취소사유(미시사업거금보전236)", 
@@ -219,21 +216,50 @@ elif "Level 2" in level:
     for m in mix_targets:
         if m in data_dict:
             final_questions += [(q, a, data_dict[m]["hint"]) for q, a in data_dict[m]["items"]]
-
 elif "Level 4" in level:
-    # ValueError 해결: 딕셔너리에 있는 이름과 100% 일치하게 직접 입력
     target_key = "기출 OX & 함정 피하기"
     final_questions = [(q, a, data_dict[target_key]["hint"]) for q, a in data_dict[target_key]["items"]]
-
-else: # Level 3 (전체 랜덤)
+else: # Level 3
     for cat in data_dict:
         final_questions += [(q, a, data_dict[cat]["hint"]) for q, a in data_dict[cat]["items"]]
 
-# --- 세션 관리 및 출력 ---
-if 'quiz_data' not in st.session_state or st.sidebar.button("🔄 새로운 문제 섞기"):
+# --- 세션 상태 및 퀴즈 실행 ---
+if 'quiz_data' not in st.session_state or st.sidebar.button("🔄 새로운 문제로 시작"):
     if final_questions:
         st.session_state.quiz_data = random.sample(final_questions, len(final_questions))
         st.session_state.idx = 0
         st.session_state.show_hint = False
 
-if 'quiz_data' in st.session_state and st.session_state.idx < len
+# SyntaxError 발생했던 위치 수리 완료
+if 'quiz_data' in st.session_state and st.session_state.idx < len(st.session_state.quiz_data):
+    q, a, h = st.session_state.quiz_data[st.session_state.idx]
+    
+    st.divider()
+    st.write(f"**현재 모드:** {level} | **문항:** {st.session_state.idx + 1} / {len(st.session_state.quiz_data)}")
+    
+    if "Level 4" in level:
+        st.warning(f"### 실전 지문 체크\n{q}")
+    else:
+        st.info(f"### Q. {q}")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("💡 힌트(암기코드)", use_container_width=True):
+            st.session_state.show_hint = True
+    with col2:
+        if st.button("🔔 정답 확인", use_container_width=True):
+            st.success(f"### A. {a}")
+            
+    if st.session_state.show_hint:
+        st.warning(f"**힌트/해설:** {h}")
+        
+    if st.button("다음 문제로 ➡️", use_container_width=True):
+        st.session_state.idx += 1
+        st.session_state.show_hint = False
+        st.rerun()
+elif 'quiz_data' in st.session_state:
+    st.balloons()
+    st.success("🎉 모든 문제를 완료했습니다! 당신의 합격을 응원합니다!")
+    if st.button("처음부터 다시 시작하기"):
+        st.session_state.idx = 0
+        st.rerun()
